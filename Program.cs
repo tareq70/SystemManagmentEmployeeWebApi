@@ -1,4 +1,10 @@
 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using SystemManagmentEmployeeWebApi.Models.Data;
+using SystemManagmentEmployeeWebApi.Repositories;
+using SystemManagmentEmployeeWebApi.Services;
+
 namespace SystemManagmentEmployeeWebApi
 {
     public class Program
@@ -10,6 +16,15 @@ namespace SystemManagmentEmployeeWebApi
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.AddDbContext<AppDbContext>(option =>
+            {
+                option.UseSqlServer(builder.Configuration.GetConnectionString("connectionString"));
+            });
+
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

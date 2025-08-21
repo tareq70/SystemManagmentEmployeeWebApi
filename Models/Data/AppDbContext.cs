@@ -1,0 +1,22 @@
+﻿using Microsoft.EntityFrameworkCore;
+using SystemManagmentEmployeeWebApi.Models.Entities;
+
+namespace SystemManagmentEmployeeWebApi.Models.Data
+{
+    public class AppDbContext:DbContext
+    {
+
+        public AppDbContext()
+        {
+            
+        }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
+
+        }
+
+        public DbSet<Department> Departments { get; set; }
+
+
+    }
+}
