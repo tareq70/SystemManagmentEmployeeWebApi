@@ -7,11 +7,14 @@ namespace SystemManagmentEmployeeWebApi.Services
     {
         private readonly AppDbContext _context;
         public IDepartmentRepository Departments { get; }
+        public IEmployeeRepository Employee { get; }
 
-        public UnitOfWork(AppDbContext context, IDepartmentRepository departmentRepository)
+
+        public UnitOfWork(AppDbContext context, IDepartmentRepository departmentRepository, IEmployeeRepository employees)
         {
             _context = context;
             Departments = departmentRepository;
+            Employee = employees;
         }
         public async Task<int> CompleteAsync()
         {

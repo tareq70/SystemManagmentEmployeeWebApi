@@ -8,5 +8,7 @@
 
         public string Description { get; set; } = default!;
 
+
+        public ICollection<Employee> Employees { get; set; } = new List<Employee>();
     }
 }
