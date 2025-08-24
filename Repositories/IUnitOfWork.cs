@@ -6,6 +6,7 @@ namespace SystemManagmentEmployeeWebApi.Repositories
     {
         IDepartmentRepository Departments { get; }
         IEmployeeRepository Employee { get; }
+        IAttendanceRepository Attendance {  get; }
 
         Task<int> CompleteAsync();
 
