@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SystemManagmentEmployeeWebApi.DTOs;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using SystemManagmentEmployeeWebApi.Repositories;
 
 namespace SystemManagmentEmployeeWebApi.Controllers
 {
-    public class AttendenceController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AttendenceController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -13,15 +15,10 @@ namespace SystemManagmentEmployeeWebApi.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpPost("CheckIn/{id}")]
         public async Task<IActionResult> CheckIn(int id)
         {
-            var result =await _unitOfWork.Attendance.CheckInAsync(id);
+            var result = await _unitOfWork.Attendance.CheckInAsync(id);
 
             return Ok(result);
 
@@ -37,7 +34,7 @@ namespace SystemManagmentEmployeeWebApi.Controllers
         [HttpGet("GetAllAttendance")]
         public async Task<IActionResult> GetAllAttendance()
         {
-            var result =await _unitOfWork.Attendance.GetAllAttendanceAsync();
+            var result = await _unitOfWork.Attendance.GetAllAttendanceAsync();
             return Ok(result);
 
         }
@@ -45,15 +42,8 @@ namespace SystemManagmentEmployeeWebApi.Controllers
 
         public async Task<IActionResult> GetAttendanceByEmployee(int id)
         {
-            var result =await _unitOfWork.Attendance.GetAttendanceByEmployeeAsync(id);
+            var result = await _unitOfWork.Attendance.GetAttendanceByEmployeeAsync(id);
             return Ok(result);
-
         }
-
-
-
-
-
-
     }
 }
