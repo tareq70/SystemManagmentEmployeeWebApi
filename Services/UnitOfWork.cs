@@ -9,14 +9,14 @@ namespace SystemManagmentEmployeeWebApi.Services
         public IDepartmentRepository Departments { get; }
         public IEmployeeRepository Employee { get; }
         public IAttendanceRepository Attendance { get; }
-
-
-        public UnitOfWork(AppDbContext context, IDepartmentRepository departmentRepository, IEmployeeRepository employees, IAttendanceRepository attendances)
+        public ILeaveRepository Leave { get; }
+        public UnitOfWork(AppDbContext context, IDepartmentRepository departmentRepository, IEmployeeRepository employees, IAttendanceRepository attendances, ILeaveRepository leaveRepository)
         {
             _context = context;
             Departments = departmentRepository;
             Employee = employees;
             Attendance = attendances;
+            Leave = leaveRepository;
         }
         public async Task<int> CompleteAsync()
         {

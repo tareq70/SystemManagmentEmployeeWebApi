@@ -18,6 +18,8 @@ namespace SystemManagmentEmployeeWebApi.Models.Entities
         public Department? Department { get; set; }
 
         public ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();
+        public ICollection<Leave> Leave { get; set; } = new List<Leave>();
+
 
 
 

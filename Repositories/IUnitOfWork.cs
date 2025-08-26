@@ -8,6 +8,8 @@ namespace SystemManagmentEmployeeWebApi.Repositories
         IEmployeeRepository Employee { get; }
         IAttendanceRepository Attendance {  get; }
 
+        ILeaveRepository Leave { get; }
+
         Task<int> CompleteAsync();
 
 

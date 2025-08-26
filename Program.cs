@@ -25,6 +25,7 @@ namespace SystemManagmentEmployeeWebApi
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+            builder.Services.AddScoped<ILeaveRepository, LeaveRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
