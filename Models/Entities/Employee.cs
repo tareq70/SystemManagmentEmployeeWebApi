@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SystemManagmentEmployeeWebApi.Models.Entities
 {
@@ -19,6 +20,9 @@ namespace SystemManagmentEmployeeWebApi.Models.Entities
 
         public ICollection<Attendance> Attendances { get; set; } = new List<Attendance>();
         public ICollection<Leave> Leave { get; set; } = new List<Leave>();
+
+        [Required(ErrorMessage = "Bank Account Number Must Entered and be valid")]
+        public string BankAccountNumber { get; set; } = default!;
 
 
 
