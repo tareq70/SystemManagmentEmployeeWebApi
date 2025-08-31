@@ -20,6 +20,7 @@ namespace SystemManagmentEmployeeWebApi.Models.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Attendance> Attendances { get; set; }
         public DbSet<Leave> Leaves { get; set; }
+        public DbSet<Payroll> Payrolls { get; set; }
 
 
     }

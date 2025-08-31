@@ -5,6 +5,7 @@ namespace SystemManagmentEmployeeWebApi.DTOs
 {
     public class LeaveDTO
     {
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Start date is required")]

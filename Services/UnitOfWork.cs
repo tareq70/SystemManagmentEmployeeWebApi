@@ -3,20 +3,22 @@ using SystemManagmentEmployeeWebApi.Repositories;
 
 namespace SystemManagmentEmployeeWebApi.Services
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork 
     {
         private readonly AppDbContext _context;
         public IDepartmentRepository Departments { get; }
         public IEmployeeRepository Employee { get; }
         public IAttendanceRepository Attendance { get; }
         public ILeaveRepository Leave { get; }
-        public UnitOfWork(AppDbContext context, IDepartmentRepository departmentRepository, IEmployeeRepository employees, IAttendanceRepository attendances, ILeaveRepository leaveRepository)
+        public IPayrollRepository PayrollRepository { get; }
+        public UnitOfWork(AppDbContext context, IDepartmentRepository departmentRepository, IEmployeeRepository employees, IAttendanceRepository attendances, ILeaveRepository leaveRepository, IPayrollRepository payrollRepository )
         {
             _context = context;
             Departments = departmentRepository;
             Employee = employees;
             Attendance = attendances;
             Leave = leaveRepository;
+            PayrollRepository = payrollRepository;
         }
         public async Task<int> CompleteAsync()
         {

@@ -5,8 +5,7 @@ namespace SystemManagmentEmployeeWebApi.DTOs
 {
     public class AttendanceDTO
     {
-        public int Id { get; set; }
-
+        public int Id { get; set; } 
         public DateTime CheckIn { get; set; }
 
         public DateTime? CheckOut { get; set; }
