@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SystemManagmentEmployeeWebApi.Controllers.Fake_Api;
+using SystemManagmentEmployeeWebApi.Exceptions;
 using SystemManagmentEmployeeWebApi.Models.Data;
 using SystemManagmentEmployeeWebApi.Repositories;
 using SystemManagmentEmployeeWebApi.Services;
@@ -52,6 +53,7 @@ namespace SystemManagmentEmployeeWebApi
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseAuthorization();
 
