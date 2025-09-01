@@ -14,7 +14,7 @@ namespace SystemManagmentEmployeeWebApi.Repositories
 
 
         // GetAttendanceByEmployeeAsync
-        Task<AttendanceDTO> GetAttendanceByEmployeeAsync(int employeeId);
+        Task<IEnumerable<AttendanceDTO>> GetAttendanceByEmployeeAsync(int employeeId);
 
 
         // GetAllAttendanceAsync

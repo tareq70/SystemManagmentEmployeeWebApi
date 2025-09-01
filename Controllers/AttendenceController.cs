@@ -15,16 +15,16 @@ namespace SystemManagmentEmployeeWebApi.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        [HttpPost("CheckIn/{id}")]
-        public async Task<IActionResult> CheckIn(int id)
+        [HttpPost("CheckIn")]
+        public async Task<IActionResult> CheckIn([FromQuery] int id)
         {
             var result = await _unitOfWork.Attendance.CheckInAsync(id);
 
             return Ok(result);
 
         }
-        [HttpPut("CheckOut/{id}")]
-        public async Task<IActionResult> CheckOut(int id)
+        [HttpPut("CheckOut")]
+        public async Task<IActionResult> CheckOut([FromQuery] int id)
         {
             var result = await _unitOfWork.Attendance.CheckOutAsync(id);
 
@@ -38,9 +38,9 @@ namespace SystemManagmentEmployeeWebApi.Controllers
             return Ok(result);
 
         }
-        [HttpGet("GetAttendanceByEmployee/{id}")]
+        [HttpGet("GetAttendanceByEmployee")]
 
-        public async Task<IActionResult> GetAttendanceByEmployee(int id)
+        public async Task<IActionResult> GetAttendanceByEmployee([FromQuery] int id)
         {
             var result = await _unitOfWork.Attendance.GetAttendanceByEmployeeAsync(id);
             return Ok(result);

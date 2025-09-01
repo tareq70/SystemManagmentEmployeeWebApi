@@ -93,10 +93,10 @@ namespace SystemManagmentEmployeeWebApi.Services
             return Attendances;
         }
 
-        public Task<AttendanceDTO> GetAttendanceByEmployeeAsync(int employeeId)
+        public async Task<IEnumerable<AttendanceDTO>> GetAttendanceByEmployeeAsync(int employeeId)
         {
-            var emp = _context.Attendances.Include(a => a.Employee)
-                .Where(A=>A.EmployeeId == employeeId)
+            var emp =await _context.Attendances.Include(a => a.Employee)
+                .Where(A => A.EmployeeId == employeeId)
                .Select(A => new AttendanceDTO
                {
                    EmpName = A.Employee.FullName,
@@ -104,9 +104,10 @@ namespace SystemManagmentEmployeeWebApi.Services
                    CheckOut = A.CheckOut,
                    WorkingHours = A.WorkingHours
 
-               }).FirstOrDefaultAsync();
+               }).ToListAsync();
 
             return emp;
+
         }
     }
 }
