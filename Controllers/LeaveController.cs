@@ -23,10 +23,10 @@ namespace SystemManagmentEmployeeWebApi.Controllers
             return Ok(result);
         
         }
-        [HttpGet("GetLeaveById/{id}")]
-        public async Task<IActionResult> GetLeaveById(int id)
+        [HttpGet("GetLeaveById")]
+        public async Task<IActionResult> GetLeaveById([FromQuery] int Id)
         {
-            var result = await _unitOfWork.Leave.GetByIdAsync(id);
+            var result = await _unitOfWork.Leave.GetByIdAsync(Id);
             return Ok(result);
 
         }
@@ -37,26 +37,26 @@ namespace SystemManagmentEmployeeWebApi.Controllers
             return Ok(result);
         }
 
-        [HttpPut("ApproveLeave/{id}")]
-        public async Task<IActionResult> ApproveLeave(int id)
+        [HttpPut("ApproveLeave")]
+        public async Task<IActionResult> ApproveLeave([FromQuery] int id)
         {
             var result = await _unitOfWork.Leave.ApproveAsync(id);
             return Ok(result);
         }
-        [HttpPut("RejectLeave/{id}")]
-        public async Task<IActionResult> RejectLeave(int id)
+        [HttpPut("RejectLeave")]
+        public async Task<IActionResult> RejectLeave([FromQuery]int id)
         {
             var result = await _unitOfWork.Leave.RejectAsync(id);
             return Ok(result);
         }
-        [HttpPut("UpdateOnLeave/{id}")]
-        public async Task<IActionResult> UpdateOnLeave(LeaveDTO leaveDTO, int id)
+        [HttpPut("UpdateOnLeave")]
+        public async Task<IActionResult> UpdateOnLeave(LeaveDTO leaveDTO,[FromQuery] int id)
         {
             var result = await _unitOfWork.Leave.UpdateAsync(leaveDTO, id);
             return Ok(result);
         }
-        [HttpDelete("DeleteLeave/{id}")]
-        public async Task<IActionResult> DeleteLeave(int id)
+        [HttpDelete("DeleteLeave")]
+        public async Task<IActionResult> DeleteLeave([FromQuery] int id)
         {
             var result = await _unitOfWork.Leave.DeleteAsync(id);
             return Ok(result);

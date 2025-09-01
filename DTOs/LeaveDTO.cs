@@ -9,10 +9,12 @@ namespace SystemManagmentEmployeeWebApi.DTOs
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Start date is required")]
-        public DateTime StartDate { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; } 
 
         [Required(ErrorMessage = "End date is required")]
         [DateGreaterThan("StartDate", ErrorMessage = "End date must be after start date")]
+        [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "Reason is required")]

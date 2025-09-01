@@ -6,7 +6,7 @@ namespace SystemManagmentEmployeeWebApi.Repositories
     public interface ILeaveRepository
     {
         Task<IEnumerable<LeaveDTO>> GetAllAsync();
-        Task<LeaveDTO?> GetByIdAsync(int Empid);
+        Task<IEnumerable< LeaveDTO?>> GetByIdAsync(int Empid);
 
         Task<LeaveDTO> AddAsync(LeaveDTO leaveDto);
         Task<LeaveDTO> UpdateAsync(LeaveDTO leaveDto, int EmpId);  

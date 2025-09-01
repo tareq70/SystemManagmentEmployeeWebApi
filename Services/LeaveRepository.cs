@@ -29,11 +29,11 @@ namespace SystemManagmentEmployeeWebApi.Services
                 }).ToListAsync();
         }
 
-        public async Task<LeaveDTO?> GetByIdAsync(int leaveId)
+        public async Task<IEnumerable<LeaveDTO?>> GetByIdAsync(int EmpId)
         {
             return await _context.Leaves
                 .Include(l => l.Employee)
-                .Where(l => l.Id == leaveId)
+                .Where(l => l.EmployeeId == EmpId)
                 .Select(l => new LeaveDTO
                 {
                     Id = l.Id,
@@ -43,22 +43,28 @@ namespace SystemManagmentEmployeeWebApi.Services
                     EndDate = l.EndDate,
                     Reason = l.Reason,
                     Status = l.Status
-                }).FirstOrDefaultAsync();
+                }).ToListAsync();
         }
 
         public async Task<LeaveDTO> AddAsync(LeaveDTO leaveDto)
         {
             var leave = new Leave
             {
+                Id= leaveDto.Id,
                 EmployeeId = leaveDto.EmployeeId,
-                StartDate = leaveDto.StartDate,
-                EndDate = leaveDto.EndDate,
+                StartDate = leaveDto.StartDate.Date,
+                EndDate = leaveDto.EndDate.Date,
                 Reason = leaveDto.Reason,
                 Status = "Pending"
             };
 
+            
+
             await _context.Leaves.AddAsync(leave);
             await _context.SaveChangesAsync();
+
+            var employee = await _context.Employees.FindAsync(leave.EmployeeId);
+
 
             return new LeaveDTO
             {
@@ -68,7 +74,7 @@ namespace SystemManagmentEmployeeWebApi.Services
                 EndDate = leave.EndDate,
                 Reason = leave.Reason,
                 Status = leave.Status,
-                EmpName= leave.Employee.FullName
+                EmpName= employee.FullName
 
             };
         }
