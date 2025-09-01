@@ -57,10 +57,11 @@ namespace SystemManagmentEmployeeWebApi.Services
         public async Task<bool> DeleteEmployeeByIdAsync(int id)
         {
             var employee = await _Context.Employees.FindAsync(id);
-            if (employee != null)
-                _Context.Employees.Remove(employee);
 
+            if (employee == null)
+                return false;
 
+            _Context.Employees.Remove(employee);
             await _Context.SaveChangesAsync();
             return true;
         }
