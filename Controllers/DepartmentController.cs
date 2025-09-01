@@ -28,8 +28,8 @@ namespace SystemManagmentEmployeeWebApi.Controllers
 
         }
 
-        [HttpGet("GetDepartmentById/{id}")]
-        public async Task<IActionResult> GetDepartmentById(int id)
+        [HttpGet("GetDepartmentById")]
+        public async Task<IActionResult> GetDepartmentById([FromQuery] int id)
         {
             var result = await _unitOfWork.Departments.GetDepartmentByIdAsync(id);
             await _unitOfWork.CompleteAsync();
@@ -37,16 +37,17 @@ namespace SystemManagmentEmployeeWebApi.Controllers
 
         }
         [HttpPost("CreateDepartment")]
-        public async Task<IActionResult> CreateDepartment(DepartmentDTO departmentDTO)
+        public async Task<IActionResult> CreateDepartment([FromBody] DepartmentDTO departmentDTO)
         {
             var result =await _unitOfWork.Departments.CreateDepartmentAsync(departmentDTO);
             await _unitOfWork.CompleteAsync();
 
             return Ok(result);
-            
+    
         }
-        [HttpPut("UpdateDepartment{id}")]
-        public async Task<IActionResult> UpdateDepartment(int id, DepartmentDTO departmentDTO) 
+
+        [HttpPut("UpdateDepartment")]
+        public async Task<IActionResult> UpdateDepartment([FromQuery] int id,[FromBody] DepartmentDTO departmentDTO) 
         {
             var result = await _unitOfWork.Departments.UpdateDepartment(id, departmentDTO);
             await _unitOfWork.CompleteAsync();
@@ -54,8 +55,8 @@ namespace SystemManagmentEmployeeWebApi.Controllers
             return Ok(result);
         
         }
-        [HttpDelete("DeleteDepartment{id}")]
-        public async Task<IActionResult> DeleteDepartment(int id)
+        [HttpDelete("DeleteDepartment")]
+        public async Task<IActionResult> DeleteDepartment([FromQuery]int id)
         {
             var result = await _unitOfWork.Departments.DeleteDepartment(id);
             await _unitOfWork.CompleteAsync();

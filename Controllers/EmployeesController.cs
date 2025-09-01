@@ -23,8 +23,8 @@ namespace SystemManagmentEmployeeWebApi.Controllers
 
             return Ok(result);
         }
-        [HttpGet("GetEmployeeById/{id}")]
-        public async Task<IActionResult> GetEmployeeById(int id)
+        [HttpGet("GetEmployeeById")]
+        public async Task<IActionResult> GetEmployeeById([FromQuery] int id)
         {
             var result = await _unitOfWork.Employee.GetEmployeeByIdAsync(id);
 
@@ -38,13 +38,13 @@ namespace SystemManagmentEmployeeWebApi.Controllers
             return Ok(result);
         }
         [HttpPut("UpdateEmployee")]
-        public async Task<IActionResult> UpdateEmployee(EmployeeDTO employeeDTO, int id)
+        public async Task<IActionResult> UpdateEmployee(EmployeeDTO employeeDTO,[FromQuery] int id)
         {
             var result = await _unitOfWork.Employee.UpdateEmployeeAsync(employeeDTO, id);
             return Ok(result);
         }
         [HttpDelete("DeleteEmployee")]
-        public async Task<IActionResult> DeleteEmployee(int id)
+        public async Task<IActionResult> DeleteEmployee([FromQuery] int id)
         {
             var result = await _unitOfWork.Employee.DeleteEmployeeByIdAsync(id);
             return Ok(result);

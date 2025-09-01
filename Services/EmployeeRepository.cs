@@ -30,7 +30,8 @@ namespace SystemManagmentEmployeeWebApi.Services
                 Age = employeeDTO.Age,
                 Address = employeeDTO.Address,
                 Email = employeeDTO.Email,
-                Phone = employeeDTO.Phone
+                Phone = employeeDTO.Phone,
+                BankAccountNumber =employeeDTO.BankAccountNumber
             };
             await _Context.Employees.AddAsync(Employee);
             await _Context.SaveChangesAsync();
@@ -47,7 +48,8 @@ namespace SystemManagmentEmployeeWebApi.Services
                 Age = Employee.Age,
                 Address = Employee.Address,
                 Email = Employee.Email,
-                Phone = Employee.Phone
+                Phone = Employee.Phone,
+                BankAccountNumber = Employee.BankAccountNumber
             };
 
         }
@@ -118,6 +120,7 @@ namespace SystemManagmentEmployeeWebApi.Services
             Emp.Address = employeeDTO.Address;
             Emp.Email = employeeDTO.Email;
             Emp.Phone = employeeDTO.Phone;
+            Emp.BankAccountNumber = employeeDTO.BankAccountNumber;
             _Context.Employees.Update(Emp);
             await _Context.SaveChangesAsync();
             return new EmployeeDTO
@@ -126,11 +129,12 @@ namespace SystemManagmentEmployeeWebApi.Services
                 FullName = Emp.FullName,
                 HireDate = Emp.HireDate,
                 Salary = Emp.Salary,
-                DepartmentId = Emp.DepartmentId,
+                DepartmentName =Emp.Department.Name,
                 Age = Emp.Age,
                 Address = Emp.Address,
                 Email = Emp.Email,
-                Phone = Emp.Phone
+                Phone = Emp.Phone,
+                BankAccountNumber = Emp.BankAccountNumber
             };
         }
     }

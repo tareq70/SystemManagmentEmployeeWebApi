@@ -31,6 +31,9 @@ namespace SystemManagmentEmployeeWebApi.DTOs
         [Required(ErrorMessage = "DepartmentId is required")]
         public int DepartmentId { get; set; }
 
+        [Required(ErrorMessage = "Bank Account Number Must Entered and be valid")]
+        public string BankAccountNumber { get; set; } = default!;
+
 
     }
 }
