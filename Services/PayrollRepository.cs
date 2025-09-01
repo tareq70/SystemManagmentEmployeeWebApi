@@ -7,7 +7,7 @@ using SystemManagmentEmployeeWebApi.Repositories;
 
 namespace SystemManagmentEmployeeWebApi.Services
 {
-    public class PayrollRepository : IPayrollRepository
+    public class PayrollRepository : IPayrollRepository 
     {
         AppDbContext context;
         IBankService bankService;
@@ -50,15 +50,15 @@ namespace SystemManagmentEmployeeWebApi.Services
                  }).ToListAsync();
         }
 
-        public async Task<PayrollDTO> GeneratePayrollAsync(int employeeId, DateTime month)
+     
+        public async Task<PayrollDTO?> GenerateAndPayPayrollAsync(int employeeId, DateTime month)
         {
             var employee = await context.Employees.FindAsync(employeeId);
             if (employee == null)
-            {
-                throw new ArgumentException("Invalid employee ID");
-            }
+                return null;
 
-            var payrollDto = new Payroll
+            // Step 1: Create payroll
+            var payroll = new Payroll
             {
                 EmployeeId = employeeId,
                 NetSalary = employee.Salary,
@@ -66,46 +66,36 @@ namespace SystemManagmentEmployeeWebApi.Services
                 IsPaid = false
             };
 
-            await context.Payrolls.AddAsync(payrollDto);
+            await context.Payrolls.AddAsync(payroll);
             await context.SaveChangesAsync();
 
-            return new PayrollDTO
-            {
-                EmployeeId = payrollDto.EmployeeId,
-                Month = payrollDto.Month,
-                NetSalary = payrollDto.NetSalary,
-                IsPaid = payrollDto.IsPaid,
-                TransactionId = payrollDto.TransactionId,
-                EmpName = employee.FullName
-            };
-
-        }
-
-        public async Task<bool> PaySalaryAsync(int payrollId)
-        {
-            var payroll = await context.Payrolls
-                .Include(p => p.Employee)
-                .FirstOrDefaultAsync(p => p.Id == payrollId);
-
-            if (payroll == null || payroll.IsPaid || payroll.Employee == null)
-                return false;
-
-            // Call Fake Bank API
+            // Step 2: Call Fake Bank API
             var result = await bankService.TransferSalaryAsync(
-                payroll.Employee.BankAccountNumber,
+                employee.BankAccountNumber,
                 payroll.NetSalary
             );
 
             if (result == null || !result.Success)
-                return false;
+                return null;
 
-            // Update payroll with transaction details
-            payroll.TransactionId = result.TransactionId;  // من البنك مش من عندنا
+            // Step 3: Update payroll
+            payroll.TransactionId = result.TransactionId; // Transaction من البنك
             payroll.IsPaid = true;
 
             await context.SaveChangesAsync();
-            return true;
+
+            // Step 4: Return DTO
+            return new PayrollDTO
+            {
+                EmployeeId = payroll.EmployeeId,
+                Month = payroll.Month,
+                NetSalary = payroll.NetSalary,
+                IsPaid = payroll.IsPaid,
+                TransactionId = payroll.TransactionId,
+                EmpName = employee.FullName
+            };
         }
+
 
         public async Task<IEnumerable<PayrollDTO>> GetPayrollForOneMonth(DateTime month)
         {

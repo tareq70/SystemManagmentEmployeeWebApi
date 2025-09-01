@@ -35,18 +35,15 @@ namespace SystemManagmentEmployeeWebApi.Controllers
             return Ok(payrolls);
         }
 
-        [HttpPost("generate")]
-        public async Task<IActionResult> Generate([FromBody] PayrollDTO dto)
-        {
-            var payroll = await _unitOfWork.PayrollRepository.GeneratePayrollAsync(dto.EmployeeId, dto.Month);
-            return Ok(payroll);
-        }
 
-        [HttpPost("pay/{id}")]
-        public async Task<IActionResult> Pay(int id)
+
+        [HttpPost("pay")]
+        public async Task<IActionResult> Pay([FromQuery] int id ,[FromQuery] DateTime date)
         {
-            var result = await _unitOfWork.PayrollRepository.PaySalaryAsync(id);
-            if (!result) return BadRequest("Payment failed.");
+            var result = await _unitOfWork.PayrollRepository.GenerateAndPayPayrollAsync(id, date);
+
+            if (result is null)
+                return BadRequest("Payment failed.");
             return Ok("Payment successful.");
         }
     }

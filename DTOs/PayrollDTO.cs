@@ -11,6 +11,7 @@ namespace SystemManagmentEmployeeWebApi.DTOs
         public decimal NetSalary { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         public DateTime Month { get; set; }
         public bool IsPaid { get; set; } = false;
 

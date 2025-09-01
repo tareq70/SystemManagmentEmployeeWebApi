@@ -7,9 +7,9 @@ namespace SystemManagmentEmployeeWebApi.Repositories
     {
         Task<IEnumerable<PayrollDTO>> GetAllAsync();
         Task<IEnumerable<PayrollDTO>> GetByEmployeeAsync(int employeeId);
-        Task<IEnumerable<PayrollDTO>> GetPayrollForOneMonth(DateTime month); 
-        Task<PayrollDTO> GeneratePayrollAsync(int employeeId, DateTime month);
-        //Task<PayrollDTO> GeneratePayrollAsync(DateTime month);
-        Task<bool> PaySalaryAsync(int payrollId);
+        Task<IEnumerable<PayrollDTO>> GetPayrollForOneMonth(DateTime month);
+
+        Task<PayrollDTO?> GenerateAndPayPayrollAsync(int employeeId, DateTime month);
+
     }
 }
