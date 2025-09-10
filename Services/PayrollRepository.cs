@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SystemManagmentEmployeeWebApi.Controllers.Fake_Api;
 using SystemManagmentEmployeeWebApi.DTOs;
+using SystemManagmentEmployeeWebApi.Exceptions;
 using SystemManagmentEmployeeWebApi.Models.Data;
 using SystemManagmentEmployeeWebApi.Models.Entities;
 using SystemManagmentEmployeeWebApi.Repositories;
@@ -19,7 +20,7 @@ namespace SystemManagmentEmployeeWebApi.Services
 
         public async Task<IEnumerable<PayrollDTO>> GetAllAsync()
         {
-            return await context.Payrolls
+            var result = await context.Payrolls
                 .Include(p => p.Employee)
 
                 .Select(p => new PayrollDTO
@@ -32,11 +33,16 @@ namespace SystemManagmentEmployeeWebApi.Services
                     EmpName = p.Employee != null ? p.Employee.FullName : string.Empty
                 })
                 .ToListAsync();
+
+            if (result is not null)
+                return result;
+            else
+                throw new NotFoundException("No Data Found..");
         }
 
         public async Task<IEnumerable<PayrollDTO>> GetByEmployeeAsync(int employeeId)
         {
-            return await context.Payrolls
+            var result = await context.Payrolls
                  .Include(p => p.Employee)
                  .Where(p => p.EmployeeId == employeeId)
                  .Select(p => new PayrollDTO
@@ -48,6 +54,10 @@ namespace SystemManagmentEmployeeWebApi.Services
                      TransactionId = p.TransactionId,
                      EmpName = p.Employee != null ? p.Employee.FullName : string.Empty
                  }).ToListAsync();
+            if (result is not null)
+                return result;
+            else
+                throw new NotFoundException($"No Data Found for Employee Id {employeeId}");
         }
 
      
@@ -55,7 +65,7 @@ namespace SystemManagmentEmployeeWebApi.Services
         {
             var employee = await context.Employees.FindAsync(employeeId);
             if (employee == null)
-                return null;
+                throw new NotFoundException($"Employee with Id {employeeId} was not found.");
 
             // Step 1: Create payroll
             var payroll = new Payroll
@@ -99,7 +109,7 @@ namespace SystemManagmentEmployeeWebApi.Services
 
         public async Task<IEnumerable<PayrollDTO>> GetPayrollForOneMonth(DateTime month)
         {
-            return await context.Payrolls
+            var result = await context.Payrolls
                 .Include(p => p.Employee)
                  .Where(p => p.Month.Year == month.Year && p.Month.Month == month.Month)
                 .Select(p => new PayrollDTO
@@ -110,6 +120,10 @@ namespace SystemManagmentEmployeeWebApi.Services
                     IsPaid = p.IsPaid,
                     TransactionId = p.TransactionId
                 }).ToListAsync();
+            if (result is not null)
+                return result;
+            else
+                throw new NotFoundException($"No Data Found for Month {month.ToString("Y")}");
         }
     }
 }
