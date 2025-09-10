@@ -16,7 +16,7 @@ namespace SystemManagmentEmployeeWebApi.Exceptions
         {
             try
             {
-                await _next(context); // يكمل البايبلاين
+                await _next(context); 
             }
             catch (Exception ex)
             {
