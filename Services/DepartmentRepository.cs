@@ -19,13 +19,19 @@ namespace SystemManagmentEmployeeWebApi.Services
 
         public async Task<IEnumerable<DepartmentDTO>> GetAllDepartmentsAsync()
         {
-            return await _context.Departments
+            var result = await _context.Departments
                 .Select(d => new DepartmentDTO
                 {
                     Id = d.Id,
                     Name = d.Name,
                     Description = d.Description
                 }).ToListAsync();
+
+
+            if (result is not null)
+                return result;
+            else
+                throw new NotFoundException($"No Data Found..");
         }
 
         public async Task<DepartmentDTO?> GetDepartmentByIdAsync(int id)
