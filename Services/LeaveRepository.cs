@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SystemManagmentEmployeeWebApi.DTOs;
+using SystemManagmentEmployeeWebApi.Exceptions;
 using SystemManagmentEmployeeWebApi.Models.Data;
 using SystemManagmentEmployeeWebApi.Models.Entities;
 using SystemManagmentEmployeeWebApi.Repositories;
@@ -16,7 +17,7 @@ namespace SystemManagmentEmployeeWebApi.Services
 
         public async Task<IEnumerable<LeaveDTO>> GetAllAsync()
         {
-            return await _context.Leaves.Include(l => l.Employee)
+            var result = await _context.Leaves.Include(l => l.Employee)
                 .Select(l => new LeaveDTO
                 {
                     Id = l.Id,
@@ -27,11 +28,16 @@ namespace SystemManagmentEmployeeWebApi.Services
                     Reason = l.Reason,
                     Status = l.Status
                 }).ToListAsync();
+
+            if (result is not null)
+                return result;
+            else
+                throw new NotFoundException($"No Data Found..");
         }
 
         public async Task<IEnumerable<LeaveDTO?>> GetByIdAsync(int EmpId)
         {
-            return await _context.Leaves
+            var result = await _context.Leaves
                 .Include(l => l.Employee)
                 .Where(l => l.EmployeeId == EmpId)
                 .Select(l => new LeaveDTO
@@ -44,6 +50,10 @@ namespace SystemManagmentEmployeeWebApi.Services
                     Reason = l.Reason,
                     Status = l.Status
                 }).ToListAsync();
+            if (result is not null)
+                return result;
+            else
+                throw new NotFoundException($"No Data Found for Employee Id {EmpId}");
         }
 
         public async Task<LeaveDTO> AddAsync(LeaveDTO leaveDto)
@@ -122,7 +132,7 @@ namespace SystemManagmentEmployeeWebApi.Services
             var leave = await _context.Leaves.FindAsync(leaveId);
 
             if (leave == null)
-                return null;
+                throw new NotFoundException($"Leave with Id {leaveId} was not found.");
 
             leave.StartDate = leaveDto.StartDate;
             leave.EndDate = leaveDto.EndDate;
