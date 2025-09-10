@@ -34,7 +34,7 @@ namespace SystemManagmentEmployeeWebApi.Services
                 })
                 .ToListAsync();
 
-            if (result is not null)
+            if (result is not null && result.Count > 0)
                 return result;
             else
                 throw new NotFoundException("No Data Found..");
@@ -54,10 +54,13 @@ namespace SystemManagmentEmployeeWebApi.Services
                      TransactionId = p.TransactionId,
                      EmpName = p.Employee != null ? p.Employee.FullName : string.Empty
                  }).ToListAsync();
-            if (result is not null)
+
+            if (result is not null && result.Count > 0)
                 return result;
             else
                 throw new NotFoundException($"No Data Found for Employee Id {employeeId}");
+
+
         }
 
      
@@ -120,7 +123,7 @@ namespace SystemManagmentEmployeeWebApi.Services
                     IsPaid = p.IsPaid,
                     TransactionId = p.TransactionId
                 }).ToListAsync();
-            if (result is not null)
+            if (result is not null && result.Count > 0)
                 return result;
             else
                 throw new NotFoundException($"No Data Found for Month {month.ToString("Y")}");

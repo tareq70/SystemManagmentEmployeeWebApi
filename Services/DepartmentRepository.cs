@@ -28,7 +28,7 @@ namespace SystemManagmentEmployeeWebApi.Services
                 }).ToListAsync();
 
 
-            if (result is not null)
+            if (result is not null && result.Count > 0)
                 return result;
             else
                 throw new NotFoundException($"No Data Found..");

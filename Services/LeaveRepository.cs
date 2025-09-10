@@ -29,7 +29,7 @@ namespace SystemManagmentEmployeeWebApi.Services
                     Status = l.Status
                 }).ToListAsync();
 
-            if (result is not null)
+            if (result is not null && result.Count > 0)
                 return result;
             else
                 throw new NotFoundException($"No Data Found..");
@@ -50,7 +50,7 @@ namespace SystemManagmentEmployeeWebApi.Services
                     Reason = l.Reason,
                     Status = l.Status
                 }).ToListAsync();
-            if (result is not null)
+            if (result is not null && result.Count > 0)
                 return result;
             else
                 throw new NotFoundException($"No Data Found for Employee Id {EmpId}");
@@ -127,7 +127,7 @@ namespace SystemManagmentEmployeeWebApi.Services
             return true;
         }
 
-        public async Task<LeaveDTO?> UpdateAsync(LeaveDTO leaveDto, int leaveId)
+        public async Task<LeaveDTO> UpdateAsync(LeaveDTO leaveDto, int leaveId)
         {
             var leave = await _context.Leaves.FindAsync(leaveId);
 
