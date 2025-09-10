@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Net;
 using System.Numerics;
 using SystemManagmentEmployeeWebApi.DTOs;
+using SystemManagmentEmployeeWebApi.Exceptions;
 using SystemManagmentEmployeeWebApi.Models.Data;
 using SystemManagmentEmployeeWebApi.Models.Entities;
 using SystemManagmentEmployeeWebApi.Repositories;
@@ -83,6 +84,10 @@ namespace SystemManagmentEmployeeWebApi.Services
                     Phone = x.Phone
 
                 }).ToListAsync();
+
+            if (Employees is null || Employees.Count == 0)
+               throw new NotFoundException($"No Data Found");
+
             return Employees;
         }
 
@@ -104,6 +109,9 @@ namespace SystemManagmentEmployeeWebApi.Services
                     Phone = x.Phone
                 }).FirstOrDefaultAsync();
 
+            if (employee is null)
+                throw new NotFoundException($"Employee with Id {id} was not found.");
+
             return employee;
         }
 
@@ -111,8 +119,8 @@ namespace SystemManagmentEmployeeWebApi.Services
         {
             var Emp = await _Context.Employees.FindAsync(id);
             if (Emp is null)
-                return null;
-  
+                throw new NotFoundException($"Employee with Id {id} was not found.");
+
 
             Emp.FullName = employeeDTO.FullName;
             Emp.HireDate = employeeDTO.HireDate;
