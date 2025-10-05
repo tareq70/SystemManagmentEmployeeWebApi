@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SystemManagmentEmployeeWebApi.Models.Data;
 
@@ -11,9 +12,11 @@ using SystemManagmentEmployeeWebApi.Models.Data;
 namespace SystemManagmentEmployeeWebApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContexModelSnapshot : ModelSnapshot
+    [Migration("20251005123839_IdentityRoles")]
+    partial class IdentityRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -4,17 +4,15 @@ using SystemManagmentEmployeeWebApi.Models.Entities;
 
 namespace SystemManagmentEmployeeWebApi.Models.Data
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext: IdentityDbContext<ApplicationUser>
     {
 
-        public AppDbContext()
-        {
-            
-        }
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
 
         }
+
+
 
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }

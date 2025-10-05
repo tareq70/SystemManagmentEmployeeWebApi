@@ -24,8 +24,6 @@ namespace SystemManagmentEmployeeWebApi.Controllers
         {
             var result = await _unitOfWork.Departments.GetAllDepartmentsAsync();
             return Ok(result);
-
-
         }
 
         [HttpGet("GetDepartmentById")]
@@ -43,7 +41,6 @@ namespace SystemManagmentEmployeeWebApi.Controllers
             await _unitOfWork.CompleteAsync();
 
             return Ok(result);
-    
         }
 
         [HttpPut("UpdateDepartment")]
@@ -55,8 +52,8 @@ namespace SystemManagmentEmployeeWebApi.Controllers
             return Ok(result);
         
         }
-        [HttpDelete("DeleteDepartment")]
-        public async Task<IActionResult> DeleteDepartment([FromQuery]int id)
+        [HttpDelete("DeleteDepartment/{id}")]
+        public async Task<IActionResult> DeleteDepartment([FromRoute] int id)
         {
             var result = await _unitOfWork.Departments.DeleteDepartment(id);
             await _unitOfWork.CompleteAsync();

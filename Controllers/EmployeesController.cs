@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SystemManagmentEmployeeWebApi.DTOs;
 using SystemManagmentEmployeeWebApi.Repositories;
@@ -17,6 +18,7 @@ namespace SystemManagmentEmployeeWebApi.Controllers
         }
 
         [HttpGet("GetAllEmployees")]
+        [Authorize]
         public async Task<IActionResult> GetAllEmployees()
         {
             var result =await _unitOfWork.Employee.GetAllEmployeeAsync();
