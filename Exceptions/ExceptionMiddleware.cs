@@ -16,7 +16,7 @@ namespace SystemManagmentEmployeeWebApi.Exceptions
         {
             try
             {
-                await _next(context); 
+                await _next(context);
             }
             catch (Exception ex)
             {
@@ -45,7 +45,8 @@ namespace SystemManagmentEmployeeWebApi.Exceptions
                     break;
             }
 
-            var result = JsonSerializer.Serialize(new {
+            var result = JsonSerializer.Serialize(new
+            {
                 error = message,
                 statusCode = (int)status
             });

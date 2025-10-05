@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Threading.Tasks;
 using SystemManagmentEmployeeWebApi.Controllers.Fake_Api;
 using SystemManagmentEmployeeWebApi.Exceptions;
 using SystemManagmentEmployeeWebApi.Models.Data;
@@ -16,7 +17,7 @@ namespace SystemManagmentEmployeeWebApi
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -91,6 +92,12 @@ namespace SystemManagmentEmployeeWebApi
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                await Seeding.SeedRoles.SeedRolesAsync(roleManager);
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
