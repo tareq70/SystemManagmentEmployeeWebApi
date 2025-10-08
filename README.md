@@ -85,22 +85,6 @@ Prerequisites:
   - SQL Server
   - Visual Studio or VS Code
 
-Setup Steps:
-  1. Clone the repository
-     git clone https://github.com/yourusername/EmployeeManagementSystemAPI.git
-
-  2. Navigate to the project folder
-     cd EmployeeManagementSystemAPI
-
-  3. Update your connection string inside appsettings.json
-
-  4. Apply database migrations
-     dotnet ef database update
-
-  5. Run the project
-     dotnet run
-  
-
 ------------------------------------------------------------
 # 📊 Future Enhancements
 ------------------------------------------------------------
