@@ -98,4 +98,4 @@ Prerequisites:
 ------------------------------------------------------------
 Name:      Tarek Elsabbagh
 Role:      Backend Developer (.NET)
-Email:     tarekelsabbagh@email.com
+Email:     tarekelspagh707@email.com
