@@ -55,6 +55,7 @@ Data Models:          DTOs (Data Transfer Objects)
 ------------------------------------------------------------
 # ⚙️ Architecture Overview
 ------------------------------------------------------------
+```
 EmployeeManagementSystem
 │
 ├── Application
@@ -75,7 +76,7 @@ EmployeeManagementSystem
     ├── Controllers
     ├── Middleware
     └── Configurations
-
+```
 ------------------------------------------------------------
 # 🚀 Getting Started
 ------------------------------------------------------------
