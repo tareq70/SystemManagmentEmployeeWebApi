@@ -60,8 +60,7 @@ EmployeeManagementSystem
 ├── Application
 │   ├── DTOs
 │   ├── Interfaces
-│   ├── Services
-│   └── Validators
+│   └── Services
 │
 ├── Domain
 │   ├── Entities
@@ -72,13 +71,10 @@ EmployeeManagementSystem
 │   ├── Repositories
 │   └── UnitOfWork
 │
-├── API
-│   ├── Controllers
-│   ├── Middleware
-│   └── Configurations
-│
-└── Tests
-    └── Unit & Integration Tests
+└── API
+    ├── Controllers
+    ├── Middleware
+    └── Configurations
 
 ------------------------------------------------------------
 # 🚀 Getting Started
