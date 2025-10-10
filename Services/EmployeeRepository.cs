@@ -115,9 +115,11 @@ namespace SystemManagmentEmployeeWebApi.Services
             return employee;
         }
 
-        public async Task<EmployeeDTO> UpdateEmployeeAsync(EmployeeDTO employeeDTO, int id)
+        public async Task<EmployeeDTO> UpdateEmployeeAsync(UpdateEmployeeDTO employeeDTO, int id)
         {
-            var Emp = await _Context.Employees.FindAsync(id);
+            var Emp = await _Context.Employees
+                .Include(e => e.Department)
+                .FirstOrDefaultAsync(e => e.Id == id);
             if (Emp is null)
                 throw new NotFoundException($"Employee with Id {id} was not found.");
 
@@ -130,7 +132,8 @@ namespace SystemManagmentEmployeeWebApi.Services
             Emp.Email = employeeDTO.Email;
             Emp.Phone = employeeDTO.Phone;
             Emp.BankAccountNumber = employeeDTO.BankAccountNumber;
-            _Context.Employees.Update(Emp);
+
+
             await _Context.SaveChangesAsync();
             return new EmployeeDTO
             {
@@ -138,7 +141,7 @@ namespace SystemManagmentEmployeeWebApi.Services
                 FullName = Emp.FullName,
                 HireDate = Emp.HireDate,
                 Salary = Emp.Salary,
-                DepartmentName =Emp.Department.Name,
+                DepartmentName = Emp.Department?.Name,
                 Age = Emp.Age,
                 Address = Emp.Address,
                 Email = Emp.Email,

@@ -78,6 +78,7 @@ namespace SystemManagmentEmployeeWebApi.Services
 
             department.Name = dto.Name;
             department.Description = dto.Description;
+            
 
             _context.Departments.Update(department);
             await _context.SaveChangesAsync();

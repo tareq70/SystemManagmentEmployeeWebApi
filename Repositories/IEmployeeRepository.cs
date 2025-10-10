@@ -14,7 +14,7 @@ namespace SystemManagmentEmployeeWebApi.Repositories
         Task<EmployeeDTO> AddEmployeeAsync(EmployeeDTO employeeDTO);
 
         //Update
-        Task<EmployeeDTO> UpdateEmployeeAsync(EmployeeDTO employeeDTO, int id);
+        Task<EmployeeDTO> UpdateEmployeeAsync(UpdateEmployeeDTO employeeDTO, int id);
 
         //Delete
         Task<bool> DeleteEmployeeByIdAsync(int id);

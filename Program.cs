@@ -1,8 +1,9 @@
-
+﻿
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,10 +64,33 @@ namespace SystemManagmentEmployeeWebApi
             builder.Services.AddControllers();
 
             #region Repositories and Services
-            builder.Services.AddDbContext<AppDbContext>(option =>
-               {
-                   option.UseSqlServer(builder.Configuration.GetConnectionString("connectionString"));
-               });
+
+
+            //builder.Services.AddDbContext<AppDbContext>(options =>
+            //{
+            //    options.UseSqlServer(
+            //        builder.Configuration.GetConnectionString("connectionString")
+            //    // لو حابب تستخدم Retry:
+            //    // , sqlOptions => sqlOptions.EnableRetryOnFailure(
+            //    //     maxRetryCount: 5,
+            //    //     maxRetryDelay: TimeSpan.FromSeconds(10),
+            //    //     errorNumbersToAdd: null
+            //    // )
+            //    );
+            //});
+
+            builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("connectionString"),
+        sqlOptions =>
+        {
+            sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 2,
+                maxRetryDelay: TimeSpan.FromSeconds(10),
+                errorNumbersToAdd: null
+            );
+        }
+));
 
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
@@ -100,11 +124,11 @@ namespace SystemManagmentEmployeeWebApi
             }
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+            // if (app.Environment.IsDevelopment())
+            // {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+            // }
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseAuthentication();

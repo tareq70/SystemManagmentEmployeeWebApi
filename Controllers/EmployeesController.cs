@@ -40,7 +40,7 @@ namespace SystemManagmentEmployeeWebApi.Controllers
             return Ok(result);
         }
         [HttpPut("UpdateEmployee")]
-        public async Task<IActionResult> UpdateEmployee(EmployeeDTO employeeDTO,[FromQuery] int id)
+        public async Task<IActionResult> UpdateEmployee(UpdateEmployeeDTO employeeDTO,[FromQuery] int id)
         {
             var result = await _unitOfWork.Employee.UpdateEmployeeAsync(employeeDTO, id);
             return Ok(result);

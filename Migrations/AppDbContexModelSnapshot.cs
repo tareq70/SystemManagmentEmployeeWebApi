@@ -245,7 +245,7 @@ namespace SystemManagmentEmployeeWebApi.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Attendances");
+                    b.ToTable("Attendances", (string)null);
                 });
 
             modelBuilder.Entity("SystemManagmentEmployeeWebApi.Models.Entities.Department", b =>
@@ -266,7 +266,7 @@ namespace SystemManagmentEmployeeWebApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("SystemManagmentEmployeeWebApi.Models.Entities.Employee", b =>
@@ -313,7 +313,7 @@ namespace SystemManagmentEmployeeWebApi.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("SystemManagmentEmployeeWebApi.Models.Entities.Leave", b =>
@@ -345,7 +345,7 @@ namespace SystemManagmentEmployeeWebApi.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Leaves");
+                    b.ToTable("Leaves", (string)null);
                 });
 
             modelBuilder.Entity("SystemManagmentEmployeeWebApi.Models.Entities.Payroll", b =>
@@ -375,7 +375,7 @@ namespace SystemManagmentEmployeeWebApi.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Payrolls");
+                    b.ToTable("Payrolls", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

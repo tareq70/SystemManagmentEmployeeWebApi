@@ -52,8 +52,8 @@ namespace SystemManagmentEmployeeWebApi.Controllers
             return Ok(result);
         
         }
-        [HttpDelete("DeleteDepartment/{id}")]
-        public async Task<IActionResult> DeleteDepartment([FromRoute] int id)
+        [HttpDelete("DeleteDepartment")]
+        public async Task<IActionResult> DeleteDepartment([FromQuery] int id)
         {
             var result = await _unitOfWork.Departments.DeleteDepartment(id);
             await _unitOfWork.CompleteAsync();
